@@ -23,3 +23,20 @@ Key SQL concepts used in this project:
 . Subqueries and CASE WHEN
 . Date functions (EXTRACT, DATE_TRUNC)
 . Rolling averages
+
+Analysis Questions & Queries
+
+1. What is the total revenue, total cost of goods sold (COGS), and gross profit per branch?
+
+SELECT 
+    territory,
+    ROUND(SUM(sales::numeric), 2) AS total_sales,
+    ROUND(SUM(quantityordered::int * msrp::numeric), 2) AS total_cogs,
+    ROUND(SUM(sales::numeric) - SUM(quantityordered::int * msrp::numeric), 2) AS gross_profit,
+    ROUND(
+        (SUM(sales::numeric) - SUM(quantityordered::int * msrp::numeric)) 
+        * 100.0 / NULLIF(SUM(sales::numeric), 0)
+    , 2) AS profit_margin_pct
+FROM sales
+GROUP BY 1
+ORDER BY 3 DESC;
