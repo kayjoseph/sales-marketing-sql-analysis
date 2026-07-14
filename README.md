@@ -40,3 +40,20 @@ SELECT
 FROM sales
 GROUP BY 1
 ORDER BY 3 DESC;
+
+
+2. Which product line has the highest profit margin — and how does it vary across branches?
+
+select 
+	distinct territory, 
+	productline,
+	round(sum(sales::numeric), 2) as total_sales,
+	 round(sum(quantityordered::int * msrp::numeric), 2) as total_cogs,
+	 round(sum(sales::numeric) - sum(quantityordered::int * msrp::numeric), 2) as gross_profit,
+	 ROUND(
+        (SUM(sales::numeric) - SUM(quantityordered::int * msrp::numeric)) 
+        * 100.0 / NULLIF(SUM(sales::numeric), 0)
+    , 2) AS profit_margin_pct
+from sales
+group by 1,2
+order by 5 desc
