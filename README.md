@@ -57,3 +57,15 @@ select
 from sales
 group by 1,2
 order by 5 desc
+
+3. What is the running total of revenue per branch ordered by date?
+   SELECT
+    territory,
+    orderdate::date AS order_date,
+    ROUND(SUM(sales::numeric), 2) AS daily_revenue,
+    ROUND(SUM(SUM(sales::numeric)) OVER (
+        PARTITION BY territory
+        ORDER BY orderdate::date
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ), 2) AS running_total
+FROM sales
