@@ -72,3 +72,26 @@ FROM sales
 WHERE territory IS NOT NULL
 GROUP BY territory, orderdate::date
 ORDER BY territory, order_date;
+
+4.Which branch crossed the $100,000 revenue milestone first? (CTE + cumulative sum)
+
+WITH daily_revenue as (
+select 
+	territory, 
+	orderdate::date as order_date,
+	round(sum(sales::numeric), 2) as daily_revenue
+from sales
+group by 1, 2
+),
+
+select 
+	territory,
+	orderdate,
+	daily_revenue,
+	round(sum(daily_revenue) over (
+		partition by territory
+		order by order_date
+		rows between unbounded preceding and current row
+	), 2) as cumulative_revenue
+	from daily_revenue
+),
