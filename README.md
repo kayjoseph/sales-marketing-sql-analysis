@@ -69,3 +69,6 @@ order by 5 desc
         ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
     ), 2) AS running_total
 FROM sales
+WHERE territory IS NOT NULL
+GROUP BY territory, orderdate::date
+ORDER BY territory, order_date;
