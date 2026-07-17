@@ -40,3 +40,18 @@ SELECT
 FROM sales
 GROUP BY 1
 ORDER BY 3 DESC;
+
+2. Which product line has the highest profit margin — and how does it vary across territories?
+
+
+select 
+	productline,
+	territory,
+	round(sum(sales::numeric), 2) as total_revenue,
+	round(sum(quantityordered::numeric * msrp::numeric), 2) as total_cogs,
+	round(sum(sales::numeric) - sum(quantityordered::numeric * msrp::numeric), 2) as gross_profit
+
+from sales
+group by 1,2 
+order by 1,5
+
