@@ -55,3 +55,25 @@ from sales
 group by 1,2 
 order by 1,5
 
+3. What is the running total of revenue per branch ordered by date?
+
+4. Which branch crossed the $100,000 revenue milestone first? 
+
+5. What is the average revenue per transaction for each customer type (Member vs Normal)?
+   
+6. Which customer type generates more revenue per product line — and is the pattern consistent across branches?
+   
+8.  Rank customers by total spend within each branch using a window function (RANK() OVER PARTITION BY)
+9.  What percentage of total revenue comes from Member customers vs Normal customers?
+10.  Which product line sells the most units on average per transaction?
+11.  Identify product lines performing above and below the store average in revenue (CASE WHEN + subquery)
+12.   Which product line has the highest return visit rate — meaning customers buy it across multiple visits?
+13.  What is the month-over-month revenue change per product line?
+14.  Which time of day (morning, afternoon, evening) generates the most revenue per branch?
+15.  Which day of the week consistently has the highest average transaction value?
+16.  Is there a significant revenue difference between weekdays and weekends?
+17.  What is the 4-week rolling average of daily revenue across all branches? (rolling window)
+18.  Is there a correlation between customer rating and gross income per transaction?
+19.  Which product line receives the highest average rating — and does it also generate the most revenue?
+20.  Which branch has the most consistently high ratings — lowest standard deviation in ratings? (STDDEV)
+21.  Do Member customers rate their experience higher than Normal customers on average — broken down by branch?
