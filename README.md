@@ -148,6 +148,47 @@ SELECT
 FROM ranked
 ORDER BY productline, revenue_rank;
 Q7 — Rank customers by total spend within each territory
+WITH customer_spend AS (
+    -- Step 1: total spend per customer per territory
+    SELECT
+        customername,
+        territory,
+        ROUND(SUM(sales::numeric), 2) AS total_spend,
+        COUNT(DISTINCT ordernumber) AS total_orders
+    FROM sales
+    WHERE territory IS NOT NULL
+    GROUP BY customername, territory
+),
+
+ranked AS (
+    -- Step 2: rank customers within each territory
+    SELECT
+        customername,
+        territory,
+        total_spend,
+        total_orders,
+        RANK() OVER (
+            PARTITION BY territory
+            ORDER BY total_spend DESC
+        ) AS territory_rank
+    FROM customer_spend
+)
+
+-- Step 3: show results with top customer label
+SELECT
+    territory,
+    territory_rank,
+    customername,
+    total_spend,
+    total_orders,
+    CASE
+        WHEN territory_rank = 1 THEN 'Top Customer'
+        WHEN territory_rank = 2 THEN '2nd'
+        WHEN territory_rank = 3 THEN '3rd'
+        ELSE 'Regular'
+    END AS customer_label
+FROM ranked
+ORDER BY territory, territory_rank;
 Q8 — Percentage of total revenue per deal size
 Q9 — Which product line sells most units per order
 Q10 — Product lines above and below average revenue
