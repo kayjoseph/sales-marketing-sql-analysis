@@ -70,7 +70,13 @@ WHERE territory IS NOT NULL
 GROUP BY territory, orderdate::date
 ORDER BY territory, order_date;
 
-4. Which branch crossed the $100,000 revenue milestone first? 
+4. Which branch crossed the $100,000 revenue milestone first?
+select 
+		territory,
+		round(sum(sales::numeric), 2) as revenue
+from sales
+group by 1
+order by 2 desc
 
 6. What is the average revenue per transaction for each customer type (Member vs Normal)?
    
