@@ -108,6 +108,45 @@ GROUP BY dealsize
 ORDER BY avg_revenue_per_order DESC;
 
 Q6 — Which deal size generates more revenue per product line
+WITH revenue_breakdown AS (
+    SELECT
+        productline,
+        dealsize,
+        ROUND(SUM(sales::numeric), 2) AS total_revenue,
+        COUNT(DISTINCT ordernumber) AS total_orders,
+        ROUND(AVG(sales::numeric), 2) AS avg_revenue_per_line
+    FROM sales
+    GROUP BY productline, dealsize
+),
+
+ranked AS (
+    SELECT
+        productline,
+        dealsize,
+        total_revenue,
+        total_orders,
+        avg_revenue_per_line,
+        RANK() OVER (
+            PARTITION BY productline
+            ORDER BY total_revenue DESC
+        ) AS revenue_rank
+    FROM revenue_breakdown
+)
+
+SELECT
+    productline,
+    dealsize,
+    total_revenue,
+    total_orders,
+    avg_revenue_per_line,
+    revenue_rank,
+    CASE
+        WHEN revenue_rank = 1 THEN 'Top performer'
+        WHEN revenue_rank = 2 THEN 'Mid performer'
+        ELSE 'Low performer'
+    END AS performance_label
+FROM ranked
+ORDER BY productline, revenue_rank;
 Q7 — Rank customers by total spend within each territory
 Q8 — Percentage of total revenue per deal size
 Q9 — Which product line sells most units per order
