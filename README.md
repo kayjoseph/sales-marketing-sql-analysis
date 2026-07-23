@@ -56,12 +56,25 @@ group by 1,2
 order by 1,5
 
 3. What is the running total of revenue per branch ordered by date?
+SELECT
+    territory,
+    orderdate::date AS order_date,
+    ROUND(SUM(sales::numeric), 2) AS daily_revenue,
+    ROUND(SUM(SUM(sales::numeric)) OVER (
+        PARTITION BY territory
+        ORDER BY orderdate::date
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ), 2) AS running_total
+FROM sales
+WHERE territory IS NOT NULL
+GROUP BY territory, orderdate::date
+ORDER BY territory, order_date;
 
 4. Which branch crossed the $100,000 revenue milestone first? 
 
-5. What is the average revenue per transaction for each customer type (Member vs Normal)?
+6. What is the average revenue per transaction for each customer type (Member vs Normal)?
    
-6. Which customer type generates more revenue per product line — and is the pattern consistent across branches?
+7. Which customer type generates more revenue per product line — and is the pattern consistent across branches?
    
 8.  Rank customers by total spend within each branch using a window function (RANK() OVER PARTITION BY)
 9.  What percentage of total revenue comes from Member customers vs Normal customers?
