@@ -79,14 +79,23 @@ group by 1
 order by 2 desc
 
 Q5 — Average revenue per order for each deal size
-with order_totals as (
-select 
-		ordernumber,
-		dealsize,
-		sum(sales::numeric) as order_revenue
-from sales 
-group by 1, 2
+WITH order_totals AS (
+SELECT
+        ordernumber,
+        dealsize,
+        SUM(sales::numeric) AS order_revenue
+    FROM sales
+    GROUP BY ordernumber, dealsize
 )
+SELECT
+    dealsize,
+    COUNT(ordernumber) AS total_orders,
+    ROUND(AVG(order_revenue), 2) AS avg_revenue_per_order,
+    ROUND(MIN(order_revenue), 2) AS min_order_revenue,
+    ROUND(MAX(order_revenue), 2) AS max_order_revenue
+FROM order_totals
+GROUP BY dealsize
+ORDER BY avg_revenue_per_order DESC;
 
 select 
 		dealsize,
