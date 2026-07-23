@@ -78,21 +78,39 @@ from sales
 group by 1
 order by 2 desc
 
-6. What is the average revenue per transaction for each customer type (Member vs Normal)?
-   
-7. Which customer type generates more revenue per product line — and is the pattern consistent across branches?
-   
-8.  Rank customers by total spend within each branch using a window function (RANK() OVER PARTITION BY)
-9.  What percentage of total revenue comes from Member customers vs Normal customers?
-10.  Which product line sells the most units on average per transaction?
-11.  Identify product lines performing above and below the store average in revenue (CASE WHEN + subquery)
-12.   Which product line has the highest return visit rate — meaning customers buy it across multiple visits?
-13.  What is the month-over-month revenue change per product line?
-14.  Which time of day (morning, afternoon, evening) generates the most revenue per branch?
-15.  Which day of the week consistently has the highest average transaction value?
-16.  Is there a significant revenue difference between weekdays and weekends?
-17.  What is the 4-week rolling average of daily revenue across all branches? (rolling window)
-18.  Is there a correlation between customer rating and gross income per transaction?
-19.  Which product line receives the highest average rating — and does it also generate the most revenue?
-20.  Which branch has the most consistently high ratings — lowest standard deviation in ratings? (STDDEV)
+Q5 — Average revenue per order for each deal size
+with order_totals as (
+select 
+		ordernumber,
+		dealsize,
+		sum(sales::numeric) as order_revenue
+from sales 
+group by 1, 2
+)
+
+select 
+		dealsize,
+		count(order_revenue) as total_orders,
+		ROUND(AVG(order_revenue), 2) AS avg_revenue_per_order,
+		ROUND(MIN(order_revenue), 2) AS min_order_revenue,
+		ROUND(MAX(order_revenue), 2) AS max_order_revenue
+FROM order_totals
+GROUP BY dealsize
+ORDER BY avg_revenue_per_order DESC;
+
+Q6 — Which deal size generates more revenue per product line
+Q7 — Rank customers by total spend within each territory
+Q8 — Percentage of total revenue per deal size
+Q9 — Which product line sells most units per order
+Q10 — Product lines above and below average revenue
+Q11 — Which product line has most distinct customers
+Q12 — Month over month revenue change per product line
+Q13 — Which month consistently generates highest revenue
+Q14 — Which quarter drives most revenue per territory
+Q15 — Year over year revenue growth percentage
+Q16 — 3 month rolling average of revenue
+Q17 — Percentage of cancelled or on hold orders per territory
+Q18 — Which product line has highest cancellation rate
+Q19 — Which country has highest average order value
+Q20 — Top 5 customers by revenue in each territory
 21.  Do Member customers rate their experience higher than Normal customers on average — broken down by branch?
