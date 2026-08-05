@@ -55,7 +55,7 @@ from sales
 group by 1,2 
 order by 1,5
 
-3. What is the running total of revenue per branch ordered by date?
+3. **What is the running total of revenue per branch ordered by date?**
 SELECT
     territory,
     orderdate::date AS order_date,
