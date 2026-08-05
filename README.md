@@ -70,7 +70,7 @@ WHERE territory IS NOT NULL
 GROUP BY territory, orderdate::date
 ORDER BY territory, order_date;
 
-4. Which branch crossed the $100,000 revenue milestone first?
+4. **Which branch crossed the $100,000 revenue milestone first?**
 select 
 		territory,
 		round(sum(sales::numeric), 2) as revenue
