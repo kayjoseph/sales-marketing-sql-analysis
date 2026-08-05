@@ -56,6 +56,7 @@ group by 1,2
 order by 1,5
 
 3. **What is the running total of revenue per branch ordered by date?**
+
 SELECT
     territory,
     orderdate::date AS order_date,
@@ -71,6 +72,7 @@ GROUP BY territory, orderdate::date
 ORDER BY territory, order_date;
 
 4. **Which branch crossed the $100,000 revenue milestone first?**
+
 select 
 		territory,
 		round(sum(sales::numeric), 2) as revenue
@@ -79,6 +81,7 @@ group by 1
 order by 2 desc
 
 5 **Average revenue per order for each deal size**
+
 WITH order_totals AS (
 SELECT
         ordernumber,
@@ -107,7 +110,8 @@ FROM order_totals
 GROUP BY dealsize
 ORDER BY avg_revenue_per_order DESC;
 
-Q6 — Which deal size generates more revenue per product line
+Which deal size generates more revenue per product line
+
 WITH revenue_breakdown AS (
     SELECT
         productline,
