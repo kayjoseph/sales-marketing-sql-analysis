@@ -78,7 +78,7 @@ from sales
 group by 1
 order by 2 desc
 
-Q5 — Average revenue per order for each deal size
+5 **Average revenue per order for each deal size**
 WITH order_totals AS (
 SELECT
         ordernumber,
