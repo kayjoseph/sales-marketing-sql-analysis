@@ -26,7 +26,7 @@ This project analyses a sales dataset covering multiple territories (NA, EMEA, A
 
 Analysis Questions & Queries
 
-** 1. What is the total revenue, COGS, and gross profit per territory? **
+ 1. **What is the total revenue, COGS, and gross profit per territory?**
 
 SELECT 
     territory,
