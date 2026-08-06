@@ -110,7 +110,7 @@ FROM order_totals
 GROUP BY dealsize
 ORDER BY avg_revenue_per_order DESC;
 
-Which deal size generates more revenue per product line
+6.Which deal size generates more revenue per product line
 
 WITH revenue_breakdown AS (
     SELECT
@@ -151,7 +151,8 @@ SELECT
     END AS performance_label
 FROM ranked
 ORDER BY productline, revenue_rank;
-Q7 — Rank customers by total spend within each territory
+
+7 **Rank customers by total spend within each territory**
 WITH customer_spend AS (
     -- Step 1: total spend per customer per territory
     SELECT
