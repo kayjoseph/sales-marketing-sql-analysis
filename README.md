@@ -110,7 +110,7 @@ FROM order_totals
 GROUP BY dealsize
 ORDER BY avg_revenue_per_order DESC;
 
-6.**Which deal size generates more revenue per product line
+6.**Which deal size generates more revenue per product line**
 
 WITH revenue_breakdown AS (
     SELECT
