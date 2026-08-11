@@ -191,6 +191,7 @@ SELECT
     END AS customer_label
 FROM ranked
 ORDER BY territory, territory_rank;
+
 8 **Percentage of total revenue per deal size**
 select
 	dealsize,
