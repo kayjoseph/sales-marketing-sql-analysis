@@ -1,4 +1,4 @@
-Walmart Sales Data — SQL Analysis
+## Walmart Sales Data — SQL Analysis
 
 Tool: PostgreSQL 16
 Dataset: Sample Sales Data — Kaggle
