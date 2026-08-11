@@ -154,7 +154,6 @@ ORDER BY productline, revenue_rank;
 
 7 **Rank customers by total spend within each territory**
 WITH customer_spend AS (
-    -- Step 1: total spend per customer per territory
     SELECT
         customername,
         territory,
