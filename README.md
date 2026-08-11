@@ -203,7 +203,24 @@ select
 from sales
 group by 1
 order by 2 desc
-Q9 — Which product line sells most units per order
+9 **Which product line sells most units per order**
+with order_quantities as (
+select 
+	productline,
+	ordernumber,
+	sum(quantityordered::int) as units_per_order
+from sales
+group by 1, 2
+)
+
+select
+	productline,
+	count(ordernumber) as total_orders,
+	round(avg(units_per_order), 2) as avg_units_per_order,
+	sum(units_per_order) as total_units_sold
+from order_quantities
+group by productline
+order by  avg_units_per_order desc
 Q10 — Product lines above and below average revenue
 Q11 — Which product line has most distinct customers
 Q12 — Month over month revenue change per product line
