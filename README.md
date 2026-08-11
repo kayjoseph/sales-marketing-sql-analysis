@@ -191,7 +191,17 @@ SELECT
     END AS customer_label
 FROM ranked
 ORDER BY territory, territory_rank;
-Q8 — Percentage of total revenue per deal size
+8 **Percentage of total revenue per deal size**
+select
+	dealsize,
+	round(sum(sales::numeric), 2) as total_revenue,
+	round(
+		sum(sales::numeric) * 100.0 / 
+		sum(sum(sales::numeric)) over()
+		, 2) as revenue_pct
+from sales
+group by 1
+order by 2 desc
 Q9 — Which product line sells most units per order
 Q10 — Product lines above and below average revenue
 Q11 — Which product line has most distinct customers
