@@ -166,7 +166,6 @@ WITH customer_spend AS (
 ),
 
 ranked AS (
-    -- Step 2: rank customers within each territory
     SELECT
         customername,
         territory,
