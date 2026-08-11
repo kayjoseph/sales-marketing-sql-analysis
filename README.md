@@ -179,7 +179,6 @@ ranked AS (
     FROM customer_spend
 )
 
--- Step 3: show results with top customer label
 SELECT
     territory,
     territory_rank,
