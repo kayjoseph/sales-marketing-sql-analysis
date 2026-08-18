@@ -26,8 +26,8 @@ This project analyses a sales dataset covering multiple territories (NA, EMEA, A
 
 Analysis Questions & Queries
 
- 1. **What is the total revenue, COGS, and gross profit per territory?**
 ```sql
+ 1. **What is the total revenue, COGS, and gross profit per territory?**
 
 SELECT 
 territory,
@@ -42,9 +42,7 @@ FROM sales
 GROUP BY 1
 ORDER BY 3 DESC;
 
-```sql
 2. **Which product line has the highest profit margin — and how does it vary across territories?**
-
 
 select 
 	productline,
