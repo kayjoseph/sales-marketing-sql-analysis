@@ -42,6 +42,7 @@ FROM sales
 GROUP BY 1
 ORDER BY 3 DESC;
 
+```sql
 2. **Which product line has the highest profit margin — and how does it vary across territories?**
 
 
